@@ -17,12 +17,14 @@ public class GameContrroller : MonoBehaviour {
     {
         matrix = new GameObject[rows, cols];
         controller = GenerationController.GetInstance();
+       
     }
 
     private void Start()
     {
         Initialize();
         GenerateField();
+        controller.GameObjectMatrix(matrix);
         StartCoroutine(GetNextGeneration());
     }
 
@@ -32,11 +34,12 @@ public class GameContrroller : MonoBehaviour {
         {
             yield return new WaitUntil(() => isStarted);
             controller.GameObjectMatrix(matrix);
+            controller.HideObjectsWithGreyColor();
         }
 
         PlayLife();
         yield return new WaitForSeconds(TIME_TO_NEXT_GENERATION);
-        if (controller.CellCount == 0)
+        if (controller.CellCount == 0 || controller.CheckIfThisTheEnd())
             PlayGame();
         StartCoroutine(GetNextGeneration());
     }
@@ -81,6 +84,7 @@ public class GameContrroller : MonoBehaviour {
         }
     }
 
+
     public void PlayGame()
     {
         isStarted = !isStarted;
@@ -94,6 +98,15 @@ public class GameContrroller : MonoBehaviour {
         GenerationReceiver receiver = new GenerationReceiver();
         invoker.SetCommand(new StopCommand(receiver));
         invoker.Execute();
+    }
+
+    public void SetRandomGeneration()
+    {
+        if (isStarted)
+            return;
+        RandomGenerationContext context = new RandomGenerationContext();
+        context.SetNewStrategy(new FullRandomStrategy());
+        context.CreateRandomGeneration();
     }
 
     private void Update()

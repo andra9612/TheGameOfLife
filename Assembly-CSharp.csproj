@@ -72,6 +72,9 @@
     <Compile Include="Assets\Scripts\Generation\Cell.cs" />
     <Compile Include="Assets\Scripts\Generation\Generation.cs" />
     <Compile Include="Assets\Scripts\Generation\GenerationController.cs" />
+    <Compile Include="Assets\Scripts\Strategy\FullRandomStrategy.cs" />
+    <Compile Include="Assets\Scripts\Strategy\IStrategy.cs" />
+    <Compile Include="Assets\Scripts\Strategy\RandomGenerationContext.cs" />
     <Compile Include="Assets\Scripts\UI\UIController.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>E:/Новий проект/Life/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
